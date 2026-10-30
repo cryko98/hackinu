@@ -62,6 +62,27 @@
   tick();
 })();
 
+// ---------- Copy contract address ----------
+(() => {
+  const btn = document.getElementById("caCopy");
+  const addr = document.getElementById("caAddr").textContent.trim();
+  btn.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(addr);
+    } catch {
+      const ta = document.createElement("textarea");
+      ta.value = addr;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
+    }
+    btn.textContent = "COPIED";
+    btn.classList.add("copied");
+    setTimeout(() => { btn.textContent = "COPY"; btn.classList.remove("copied"); }, 1600);
+  });
+})();
+
 // ---------- Mobile nav ----------
 (() => {
   const nav = document.querySelector(".nav");
@@ -126,8 +147,8 @@
     ].join("\n"),
     whoami: () => "guest. but you could be a hacker. pull up your hood.",
     lore: () => "stray shiba > found laptop > learned code > saw the rugs > fair-launched $HACKINU on pump.fun > built a pack.",
-    ticker: () => ["name:     Hacker Inu", "ticker:   $HACKINU", "chain:    Solana", "launch:   pump.fun (fair launch)", "supply:   1,000,000,000", "tax:      0%"].join("\n"),
-    buy: () => "1. get a solana wallet  2. load SOL  3. open pump.fun & search $HACKINU  4. execute.",
+    ticker: () => ["name:     Hacker Inu", "ticker:   $HACKINU", "chain:    Solana", "ca:       HD2qqwAeLkyXnboo5cSGSdGw4oHCbvNEvWsgDSgWpump", "launch:   pump.fun (fair launch)", "supply:   1,000,000,000", "tax:      0%"].join("\n"),
+    buy: () => "1. get a solana wallet  2. load SOL  3. open pump.fun & paste the CA  4. execute.\nCA: HD2qqwAeLkyXnboo5cSGSdGw4oHCbvNEvWsgDSgWpump",
     manifesto: () => "the rug was the bug. fair launch is the patch.",
     bark: () => ["WOOF.", "woof woof.", "*aggressive keyboard typing*", "bork.exe executed successfully."][(Math.random() * 4) | 0],
     clear: () => { out.innerHTML = ""; return null; },
